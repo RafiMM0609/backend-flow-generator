@@ -72,19 +72,21 @@ ATURAN TATA LETAK (POSITION) - SANGAT PENTING
 Buat tata letak (layout) yang RAPI dan LOGIS dari ATAS ke BAWAH.
 Mulai node 'input' pertama di position: { x: 250, y: 0 }.
 Untuk setiap node baru di alur utama (lurus), tambahkan nilai 'y' sekitar 120-150. Jaga nilai 'x' tetap sama (misal: 250).
+Gunakan type oval untuk start dan end node.
+Gunakan type diamond untuk decision node.
 Jika ada PERCABANGAN (misal: "Jika Ya / Jika Tidak"), atur node-node tersebut secara horizontal (ubah nilai 'x', misal: 100 dan 400) pada level 'y' yang sama.
 Contoh Node:
-{ "id": "1", "type": "input", "data": { "label": "Mulai" }, "position": { "x": 250, "y": 0 } }
+{ "id": "1", "type": "oval", "data": { "label": "Mulai" }, "position": { "x": 250, "y": 0 } }
 { "id": "2", "type": "default", "data": { "label": "Proses A" }, "position": { "x": 250, "y": 120 } }
-{ "id": "3-ya", "type": "default", "data": { "label": "Jalur Ya" }, "position": { "x": 100, "y": 240 } }
+{ "id": "3-ya", "type": "diamond", "data": { "label": "Jalur Ya" }, "position": { "x": 100, "y": 240 } }
 { "id": "3-tidak", "type": "default", "data": { "label": "Jalur Tidak" }, "position": { "x": 400, "y": 240 } }
 ATURAN UNTUK "edges"
-"edges" adalah array dari objek yang menghubungkan node. Setiap edge HARUS memiliki:
+"edges" adalah array dari objek yang menghubungkan node, jika percabangan ya dan tidak tambahkan label yes untuk ya dan label no untuk tidak. Setiap edge HARUS memiliki:
 "id": string (unik, misal: "e1-2").
 "source": string (merujuk ke 'id' node asal).
 "target": string (merujuk ke 'id' node tujuan).
 Contoh Edge:
-{ "id": "e1-2", "source": "1", "target": "2" }
+{ "id": "e1-2", "source": "1", "target": "2", "type": "custom", "label": "Yes" }
 buatkan diagram berdasarkan keterangan dibawah ini`
 	resultFinal := fmt.Sprintf("%s\n%s", defaultPromp, inputUser)
 	return resultFinal

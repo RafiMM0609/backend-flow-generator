@@ -34,15 +34,17 @@ func main(){
 		return c.SendString("Hello, World!")
 	})
 
-	app.Get("/api/generate/flow", func(c *fiber.Ctx) error {
-		prompUser := c.Query("promp")
-		if prompUser == "" {
+	app.Post("/api/generate/flow", func(c *fiber.Ctx) error {
+		var requestBody struct {
+			Promp string `json:"promp"`
+		}
+		if err := c.BodyParser(&requestBody); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"status": "error",
 				"message": "Query parameter 'promp' is required",
 			})
 		}
-		finalPromp := HandlerPromp(prompUser)
+		finalPromp := HandlerPromp(requestBody.Promp)
 		responseAi := HandlerGemini(finalPromp)
 		return c.JSON(fiber.Map{
 			"status": "success",

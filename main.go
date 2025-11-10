@@ -30,8 +30,9 @@ func main(){
 		},
 	))
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+	app.Get("/:name", func(c *fiber.Ctx) error {
+		name := c.Params("name")
+		return c.SendString("Hello, " + name + "!")
 	})
 
 	app.Post("/api/generate/flow", func(c *fiber.Ctx) error {

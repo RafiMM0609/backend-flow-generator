@@ -14,7 +14,6 @@ import (
 
 func main(){
 	fmt.Println("Starting the server...")
-	
 	// Load environment variables from .env file
 	err := godotenv.Load()
 	if err != nil {
@@ -56,7 +55,7 @@ func main(){
 
 
 
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen(":5000"))
 
 }
 
